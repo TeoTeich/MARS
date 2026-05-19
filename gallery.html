@@ -695,6 +695,60 @@
     .carousel-btn.prev { left: -10px; }
     .carousel-btn.next { right: -10px; }
 }
+
+/* --- СТИЛИ ДЛЯ КНОПОК ПРОКРУТКИ ГАЛЕРЕИ --- */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(11, 15, 16, 0.7); /* Темный фон с прозрачностью */
+    border: 1px solid rgba(225, 211, 183, 0.3); /* Тонкая бежевая рамка */
+    color: var(--wood-beige); /* Цвет стрелочки */
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    z-index: 10;
+    user-select: none;
+}
+
+/* Эффект при наведении мышкой */
+.carousel-btn:hover {
+    background-color: var(--mars-orange);
+    color: var(--text-light);
+    border-color: var(--mars-orange);
+    box-shadow: 0 0 15px rgba(204, 107, 58, 0.4);
+}
+
+/* Позиционирование кнопок по бокам */
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+/* Адаптивность кнопок под мобильные экраны */
+@media screen and (max-width: 768px) {
+    .carousel-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+        background-color: rgba(11, 15, 16, 0.85); /* Чуть темнее на мобильных */
+    }
+    .carousel-btn.prev {
+        left: 10px;
+    }
+    .carousel-btn.next {
+        right: 10px;
+    }
+}
     </style>
 </head>
 <body>
