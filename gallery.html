@@ -1103,6 +1103,37 @@
                 closeModalFunc();
             });
         });
+
+        // --- ПОДДЕРЖКА СВАЙПОВ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ---
+let touchStartX = 0;
+let touchEndX = 0;
+
+const carouselContainer = document.querySelector('.carousel-container');
+
+carouselContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carouselContainer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50; // Минимальная дистанция в пикселях для фиксации свайпа
+    
+    // Свайп влево — листаем вперед
+    if (touchStartX - touchEndX > swipeThreshold) {
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        if (nextBtn) nextBtn.click();
+    }
+    
+    // Свайп вправо — листаем назад
+    if (touchEndX - touchStartX > swipeThreshold) {
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        if (prevBtn) prevBtn.click();
+    }
+}
     </script>
 </body>
 </html>
