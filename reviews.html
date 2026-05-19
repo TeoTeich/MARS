@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café MARS | Космическая атмосфера & Кухня путешествий</title>
+    <title>Café MARS | Отзывы гостей</title>
     <style>
         /* --- ЦВЕТОВАЯ ГАММА (Космический Марс + Интерьер) --- */
         :root {
@@ -75,7 +75,7 @@
 
         nav a:hover, nav a.active {
             color: var(--text-light);
-            letter-spacing: 4px; /* Эффект Maya при наведении */
+            letter-spacing: 4px;
         }
 
         .header-cta {
@@ -86,204 +86,15 @@
             letter-spacing: 2px;
             color: var(--mars-orange);
             cursor: pointer;
+            background: transparent;
+            font-family: var(--font-main);
+            transition: all 0.3s ease;
         }
 
         .header-cta:hover {
             background-color: var(--mars-orange);
             color: var(--space-dark);
             box-shadow: 0 0 15px rgba(204, 107, 58, 0.4);
-        }
-
-        /* --- ГЛАВНЫЙ ЭКРАН (Имитация текстуры обложки барной карты) --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            
-            /* Сложный градиент: имитируем изумрудно-оранжевую космическую пыль */
-            background: 
-                radial-gradient(circle at 80% 20%, rgba(204, 107, 58, 0.25), transparent 40%),
-                radial-gradient(circle at 20% 80%, rgba(15, 81, 73, 0.4), transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(11, 15, 16, 0.3), var(--space-dark)),
-                url('https://www.transparenttextures.com/patterns/stardust.png'), 
-                #0b0f10; 
-            padding: 0 20px;
-        }
-
-        /* Эффект планеты/сферы на заднем плане */
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(204, 107, 58, 0.15) 0%, transparent 70%);
-            filter: blur(30px);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 80px;
-            font-weight: 200;
-            letter-spacing: 20px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--text-light);
-            text-shadow: 0 0 20px rgba(247, 243, 232, 0.1);
-        }
-
-        .hero p {
-            font-size: 16px;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: var(--mars-orange);
-        }
-
-        /* --- СЕКЦИЯ КОНЦЕПЦИИ --- */
-        .concept {
-            padding: 140px 60px;
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            gap: 100px;
-            align-items: center;
-            position: relative;
-        }
-
-        .concept-text {
-            flex: 1.2;
-        }
-
-        .concept-text h2 {
-            font-size: 42px;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 35px;
-            color: var(--wood-beige);
-            border-left: 3px solid var(--mars-orange);
-            padding-left: 20px;
-        }
-
-        .concept-text p {
-            color: rgba(247, 243, 232, 0.7);
-            margin-bottom: 25px;
-            font-size: 16px;
-            line-height: 1.9;
-            letter-spacing: 0.5px;
-        }
-        
-        .concept-text p strong {
-            color: var(--mars-orange);
-            font-weight: 500;
-        }
-
-        .concept-visual {
-            flex: 1;
-            position: relative;
-        }
-
-        .concept-image {
-            display: block;
-            width: 100%;
-            height: 550px;
-            object-fit: cover;
-            border: 1px solid rgba(225, 211, 183, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-
-        .concept-visual::after {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: -30px;
-            width: 100%;
-            height: 100%;
-            background-color: var(--nebula-emerald);
-            z-index: 1;
-            border: 1px solid rgba(204, 107, 58, 0.3);
-            box-shadow: 0 0 40px rgba(15, 81, 73, 0.3);
-        }
-
-        /* --- ФУТЕР --- */
-        footer {
-            background-color: #060809;
-            border-top: 1px solid rgba(15, 81, 73, 0.2);
-            padding: 100px 60px 40px;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .footer-block h4 {
-            color: var(--mars-orange);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            font-weight: 400;
-            font-size: 14px;
-        }
-
-        .footer-block p {
-            color: rgba(247, 243, 232, 0.5);
-            margin-bottom: 15px;
-        }
-
-        /* Контейнер для иконок приложений */
-/* Контейнер для иконок приложений в футере */
-.footer-socials-icons {
-    display: flex;
-    gap: 18px;       /* Комфортный отступ между кнопками */
-    margin-top: 15px;
-}
-
-/* Настройки для самих кнопок-иконок */
-.social-icon-link {
-    width: 40px;     /* Размер один в один как у аккуратных иконок приложений */
-    height: 40px;
-    color: var(--mars-orange); /* Окрашиваем SVG в наш марсианский оранжевый */
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease, filter 0.3s ease;
-    display: inline-block;
-}
-
-.social-icon-link svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-/* Эффектный премиальный отклик при наведении курсора */
-.social-icon-link:hover {
-    color: var(--text-light); /* Плавно перекрашивается в благородный светлый */
-    transform: translateY(-4px) scale(1.08); /* Иконка элегантно приподнимается */
-    filter: drop-shadow(0 4px 12px rgba(204, 107, 58, 0.35)); /* Мягкое космическое оранжевое свечение */
-}
-
-        .copyright {
-            text-align: center;
-            margin-top: 80px;
-            color: #333;
-            font-size: 11px;
-            border-top: 1px solid rgba(247, 243, 232, 0.02);
-            padding-top: 30px;
         }
 
         /* --- ВЫПАДАЮЩЕЕ МЕНЮ --- */
@@ -377,12 +188,6 @@
             color: rgba(247, 243, 232, 0.9);
         }
 
-        .contacts-dropdown .contact-section .sub-text {
-            color: rgba(247, 243, 232, 0.6);
-            font-size: 11px;
-            margin-top: 2px;
-        }
-
         .contacts-dropdown .contact-link {
             display: block;
             font-size: 12px;
@@ -396,11 +201,232 @@
 
         .contacts-dropdown .contact-link:hover {
             color: var(--text-light) !important;
-            text-shadow: 0 0 5px rgba(247, 243, 232, 0.5);
             padding-left: 5px; 
         }
 
-        /* --- СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА В СТИЛЕ LUCKY GROUP --- */
+        /* --- ГЛАВНЫЙ ЭКРАН ОТЗЫВОВ --- */
+        .reviews-hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(15, 81, 73, 0.3), var(--space-dark)),
+                url('https://www.transparenttextures.com/patterns/stardust.png'), 
+                #0b0f10; 
+            padding: 0 20px;
+        }
+
+        .reviews-hero h1 {
+            font-size: 60px;
+            font-weight: 200;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .reviews-hero p {
+            font-size: 14px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--mars-orange);
+        }
+
+        /* --- СЕКЦИЯ С КАРУСЕЛЯМИ ОТЗЫВОВ --- */
+        .reviews-section {
+            padding: 80px 60px 140px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        .carousel-container h2 {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: var(--wood-beige);
+            border-left: 3px solid var(--mars-orange);
+            padding-left: 20px;
+        }
+
+        .rating-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--mars-orange);
+            margin-left: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            background: rgba(204, 107, 58, 0.1);
+            padding: 2px 10px;
+            border-radius: 4px;
+        }
+
+        /* Оболочка для слайдов и кнопок */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Окно просмотра */
+        .carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+            border: 1px solid rgba(225, 211, 183, 0.1);
+            background: rgba(6, 8, 9, 0.5);
+        }
+
+        /* Лента со слайдами */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        /* Слайд (показываем по 3 штуки в ряд на десктопе) */
+        .carousel-slide {
+            min-width: calc(100% / 3);
+            padding: 0 12px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .carousel-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border: 1px solid rgba(247, 243, 232, 0.05);
+            background: #111415;
+            padding: 10px;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        .carousel-slide:hover img {
+            transform: scale(1.02);
+        }
+
+        /* СТИЛИ ДЛЯ КНОПОК ПРОКРУТКИ (ИЗ GALLERY.HTML) */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(11, 15, 16, 0.7); 
+            border: 1px solid rgba(225, 211, 183, 0.3); 
+            color: var(--wood-beige); 
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            user-select: none;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--mars-orange);
+            color: var(--text-light);
+            border-color: var(--mars-orange);
+            box-shadow: 0 0 15px rgba(204, 107, 58, 0.4);
+        }
+
+        .carousel-btn.prev { left: 20px; }
+        .carousel-btn.next { right: 20px; }
+
+        .carousel-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+            border-color: rgba(247, 243, 232, 0.1);
+        }
+
+        /* --- ФУТЕР (ИЗ GALLERY.HTML) --- */
+        footer {
+            background-color: #060809;
+            border-top: 1px solid rgba(15, 81, 73, 0.2);
+            padding: 100px 60px 40px;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .footer-block h4 {
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .footer-block p {
+            color: rgba(247, 243, 232, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .footer-socials-icons {
+            display: flex;
+            gap: 18px;       
+            margin-top: 15px;
+        }
+
+        .social-icon-link {
+            width: 40px;     
+            height: 40px;
+            color: var(--mars-orange); 
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease, filter 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-icon-link svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .social-icon-link:hover {
+            color: var(--text-light); 
+            transform: translateY(-4px) scale(1.08); 
+            filter: drop-shadow(0 4px 12px rgba(204, 107, 58, 0.35)); 
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            color: #333;
+            font-size: 11px;
+            border-top: 1px solid rgba(247, 243, 232, 0.02);
+            padding-top: 30px;
+        }
+
+        /* --- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ (ИЗ GALLERY.HTML) --- */
         .booking-modal {
             position: fixed;
             top: 0;
@@ -477,7 +503,6 @@
             letter-spacing: 1px;
         }
 
-        /* Логика шагов */
         .booking-step {
             display: none;
         }
@@ -503,7 +528,6 @@
             margin-bottom: 10px;
         }
         
-        /* Кастомный селектор гостей в премиальном стиле */
         .guests-picker {
             display: flex;
             justify-content: space-between;
@@ -525,9 +549,6 @@
             background-color: var(--nebula-emerald);
             border-color: var(--mars-orange);
         }
-        .guest-option:hover:not(.selected) {
-            border-color: rgba(247, 243, 232, 0.4);
-        }
 
         .form-group input[type="text"],
         .form-group input[type="tel"],
@@ -547,13 +568,11 @@
             border-color: var(--mars-orange);
         }
 
-        /* Календарь инвертируем под темную тему */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;
         }
 
-        /* Сетка тайм-слотов */
         .time-slots-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -574,14 +593,8 @@
         .time-slot input:checked + span {
             background-color: var(--nebula-emerald);
             border-color: var(--mars-orange);
-            color: #fff;
         }
-        .time-slot span:hover {
-            border-color: rgba(247, 243, 232, 0.5);
-        }
-        .prime-time {
-            position: relative;
-        }
+        .prime-time { position: relative; }
         .prime-time::after {
             content: '•';
             position: absolute;
@@ -591,7 +604,6 @@
             font-size: 10px;
         }
 
-        /* Кнопки навигации */
         .step-buttons {
             display: flex;
             gap: 15px;
@@ -626,139 +638,40 @@
             color: var(--text-light);
             border-color: rgba(247, 243, 232, 0.4);
         }
-        /* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
-@media screen and (max-width: 1024px) {
-    header {
-        padding: 20px 30px;
-    }
-    nav ul {
-        gap: 20px;
-    }
-    .hero h1 {
-        font-size: 50px;
-        letter-spacing: 10px;
-    }
-    .concept {
-        padding: 80px 30px;
-        flex-direction: column;
-        gap: 50px;
-    }
-    .concept-text h2 {
-        font-size: 32px;
-    }
-    footer {
-        padding: 60px 30px 30px;
-    }
-    .footer-content {
-        flex-direction: column;
-        gap: 35px;
-    }
-}
 
-@media screen and (max-width: 768px) {
-    header {
-        position: relative;
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
-        background: rgba(11, 15, 16, 0.95);
-    }
-    nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    .header-cta {
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-    }
-    .hero {
-        height: auto;
-        padding: 120px 20px 80px;
-    }
-    .hero h1 {
-        font-size: 36px;
-        letter-spacing: 6px;
-    }
-    .hero p {
-        font-size: 13px;
-        letter-spacing: 4px;
-    }
-    .concept-visual::after {
-        top: 15px;
-        left: -15px;
-    }
-    .concept-image {
-        height: 350px;
-    }
-}
-/* Стили для всплывающего окна со скидкой */
-.discount-modal {
-    display: none; /* Изначально скрыто */
-    position: fixed;
-    z-index: 10000; /* Чтобы было поверх всех окон */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(11, 15, 16, 0.85); /* Темный полупрозрачный фон */
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
+        /* --- АДАПТИВНОСТЬ (ИЗ GALLERY.HTML) --- */
+        @media screen and (max-width: 1024px) {
+            header { padding: 20px 30px; }
+            nav ul { gap: 20px; }
+            .reviews-hero h1 { font-size: 42px; letter-spacing: 8px; }
+            .reviews-section { padding: 60px 30px; }
+            .carousel-slide { min-width: calc(100% / 2); }
+            footer { padding: 60px 30px 30px; }
+            .footer-content { flex-direction: column; gap: 35px; }
+        }
 
-.discount-modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.discount-modal-content {
-    position: relative;
-    max-width: 500px;
-    width: 90%;
-    background-color: var(--space-dark);
-    border: 2px solid var(--mars-orange);
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 0 30px rgba(204, 107, 58, 0.4);
-    text-align: center;
-}
-
-.discount-img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.discount-img:hover {
-    transform: scale(1.01);
-}
-
-.discount-close {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    color: var(--text-light);
-    background-color: var(--mars-orange);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 24px;
-    line-height: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    transition: background-color 0.2s ease;
-}
-
-.discount-close:hover {
-    background-color: #b55a2f;
-}
+        @media screen and (max-width: 768px) {
+            header {
+                position: relative;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+                background: rgba(11, 15, 16, 0.95);
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .header-cta { width: 100%; text-align: center; padding: 10px; }
+            .reviews-hero { height: auto; padding: 80px 20px 40px; }
+            .reviews-hero h1 { font-size: 32px; letter-spacing: 4px; }
+            .carousel-slide { min-width: 100%; }
+            .carousel-image-wrapper { height: 280px; }
+            .carousel-btn { width: 38px; height: 38px; font-size: 16px; background-color: rgba(11, 15, 16, 0.85); }
+            .carousel-btn.prev { left: 10px; }
+            .carousel-btn.next { right: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -767,7 +680,7 @@
         <div class="logo">MARS <span>RESTAURANT</span></div>
         <nav>
             <ul>
-                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="index.html">Главная</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">Меню</a>
                     <ul class="dropdown-content">
@@ -778,8 +691,8 @@
                         <li><a href="vinnaya-karta-postranichno-1.pdf" target="_blank">Винная карта</a></li>
                     </ul>
                 </li>
-                <li><a href="delivery.html" class="active">Доставка</a></li>
-                <li><a href="gallery.html" class="active">Галерея</a></li>
+                <li><a href="delivery.html">Доставка</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">Контакты</a>
                     <div class="dropdown-content contacts-dropdown">
@@ -793,36 +706,60 @@
                         <div class="contact-section">
                             <h5>Контакты</h5>
                             <a href="tel:+78432217007" class="contact-link">+7 (843) 221-70-07</a>
-                            <a href="mailto:venerakazan@bk.ru" class="contact-link">venerakazan@bk.ru</a>
-                        </div>
-                        <div class="contact-section">
-                            <h5>График работы</h5>
-                            <p>ПН - ВС: 10:00 — 22:00</p>
                         </div>
                     </div>
                 </li>
                 <li><a href="reviews.html">Отзывы</a></li>
             </ul>
         </nav>
-        <a href="#" class="header-cta">Бронирование стола</a>
+        <button class="header-cta">Бронирование стола</button>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>M A R S</h1>
-            <p>Космическая одиссея вкуса</p>
-        </div>
+    <section class="reviews-hero">
+        <h1>Отзывы</h1>
+        <p>Визуальная эстетика вашего вечера</p>
     </section>
 
-    <section class="concept">
-        <div class="concept-text">
-            <h2>Точка притяжения</h2>
-            <p>Café MARS — это концептуальное слияние космического минимализма и земного уюта в самом сердце Казани передали атмосферу для искушенных путешественников.</p>
-            <p>Утонченная винная карта и авторские коктейли, вдохновленные картой звездного неба. Каждая деталь здесь — от обложки меню до подачи блюд — подчинена единой эстетике бесконечного пути.</p>
+    <section class="reviews-section">
+        
+        <div class="carousel-container" id="carousel2gis">
+            <h2>Мы в 2gis <div class="rating-value">4.6 ★</div></h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" disabled>&larr;</button>
+                <div class="carousel-viewport">
+                    <div class="carousel-track">
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-1.jpg" alt="Отзыв 2gis 1"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-2.jpg" alt="Отзыв 2gis 2"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-3.jpg" alt="Отзыв 2gis 3"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-4.jpg" alt="Отзыв 2gis 4"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-5.jpg" alt="Отзыв 2gis 5"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-6.jpg" alt="Отзыв 2gis 6"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/2gis-7.jpg" alt="Отзыв 2gis 7"></div></div>
+                    </div>
+                </div>
+                <button class="carousel-btn next">&rarr;</button>
+            </div>
         </div>
-        <div class="concept-visual">
-            <img src="XXXL_9.webp" class="concept-image" alt="MARS Restaurant Space">
+
+        <div class="carousel-container" id="carouselYandex">
+            <h2>Мы в Яндекс <div class="rating-value">4.4 ★</div></h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" disabled>&larr;</button>
+                <div class="carousel-viewport">
+                    <div class="carousel-track">
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-1.jpg" alt="Отзыв Яндекс 1"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-2.jpg" alt="Отзыв Яндекс 2"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-3.jpg" alt="Отзыв Яндекс 3"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-4.jpg" alt="Отзыв Яндекс 4"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-5.jpg" alt="Отзыв Яндекс 5"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-6.jpg" alt="Отзыв Яндекс 6"></div></div>
+                        <div class="carousel-slide"><div class="carousel-image-wrapper"><img src="img/reviews/yandex-7.jpg" alt="Отзыв Яндекс 7"></div></div>
+                    </div>
+                </div>
+                <button class="carousel-btn next">&rarr;</button>
+            </div>
         </div>
+
     </section>
 
     <footer>
@@ -860,8 +797,6 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
         <div class="copyright">
             © 2026 Ресторан «MARS». Новая визуальная концепция.
         </div>
@@ -871,12 +806,10 @@
         <div class="booking-overlay"></div>
         <div class="booking-content">
             <button class="close-modal" id="closeModal">&times;</button>
-            
             <div class="booking-header">
                 <h3>Бронирование стола</h3>
                 <p>Café MARS | г. Казань, ул. Московская, 35</p>
             </div>
-
             <form id="bookingForm" class="booking-steps">
                 <div class="booking-step active" data-step="1">
                     <div class="form-group">
@@ -890,15 +823,12 @@
                         </div>
                         <input type="hidden" id="guestsCount" value="1" required>
                     </div>
-                    
                     <div class="form-group">
                         <label>Дата визита</label>
                         <input type="date" id="bookingDate" required>
                     </div>
-
                     <button type="button" class="btn-next">Найти время</button>
                 </div>
-
                 <div class="booking-step" data-step="2">
                     <label class="group-label">Доступное время</label>
                     <div class="time-slots-grid">
@@ -911,28 +841,23 @@
                         <label class="time-slot"><input type="radio" name="bookingTime" value="20:00"><span class="prime-time">20:00</span></label>
                         <label class="time-slot"><input type="radio" name="bookingTime" value="21:00"><span>21:00</span></label>
                     </div>
-
                     <div class="step-buttons">
                         <button type="button" class="btn-prev">Назад</button>
                     </div>
                 </div>
-
                 <div class="booking-step" data-step="3">
                     <div class="form-group">
                         <label>Ваше имя</label>
                         <input type="text" id="guestName" placeholder="Александр" required>
                     </div>
-                    
                     <div class="form-group">
                         <label>Телефон для подтверждения</label>
                         <input type="tel" id="guestPhone" placeholder="+7 (999) 000-00-00" required>
                     </div>
-
                     <div class="form-group">
                         <label>Пожелания к заказу (необязательно)</label>
                         <textarea id="guestComment" rows="2" placeholder="Например: у окна, тихая зона..."></textarea>
                     </div>
-
                     <div class="step-buttons">
                         <button type="button" class="btn-prev">Назад</button>
                         <button type="submit" class="btn-submit">Оформить бронирование</button>
@@ -944,185 +869,191 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Элементы управления модальным окном
+            // === ИНИЦИАЛИЗАЦИЯ КАРУСЕЛЕЙ ОТЗЫВОВ ===
+            function initCarousel(carouselId) {
+                const container = document.getElementById(carouselId);
+                if (!container) return;
+                const track = container.querySelector('.carousel-track');
+                const slides = container.querySelectorAll('.carousel-slide');
+                const nextBtn = container.querySelector('.carousel-btn.next');
+                const prevBtn = container.querySelector('.carousel-btn.prev');
+                
+                let index = 0;
+                
+                function getSlidesVisible() {
+                    if (window.innerWidth <= 768) return 1;
+                    if (window.innerWidth <= 1024) return 2;
+                    return 3;
+                }
+
+                function updateCarousel() {
+                    const slidesVisible = getSlidesVisible();
+                    const maxIndex = Math.max(0, slides.length - slidesVisible);
+                    
+                    if (index > maxIndex) index = maxIndex;
+                    
+                    const slideWidth = track.clientWidth / slidesVisible;
+                    slides.forEach(slide => {
+                        slide.style.minWidth = `${slideWidth}px`;
+                    });
+
+                    track.style.transform = `translateX(-${index * slideWidth}px)`;
+                    
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index >= maxIndex;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const maxIndex = slides.length - getSlidesVisible();
+                    if (index < maxIndex) {
+                        index++;
+                        updateCarousel();
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (index > 0) {
+                        index--;
+                        updateCarousel();
+                    }
+                });
+
+                window.addEventListener('resize', updateCarousel);
+                setTimeout(updateCarousel, 100);
+            }
+
+            initCarousel('carousel2gis');
+            initCarousel('carouselYandex');
+
+
+            // === СИНХРОННОЕ МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ ИЗ GALLERY.HTML ===
             const modal = document.getElementById('bookingModal');
-            const openBtn = document.querySelector('.header-cta'); 
+            const openBtn = document.querySelector('.header-cta');
             const closeBtn = document.getElementById('closeModal');
             const overlay = document.querySelector('.booking-overlay');
 
-            // Открытие окна
-            openBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden'; 
-                
-                // Минимальная дата — сегодня
-                const today = new Date().toISOString().split('T')[0];
-                const dateInput = document.getElementById('bookingDate');
-                dateInput.min = today;
-                if (!dateInput.value) {
-                    dateInput.value = today;
-                }
-            });
-
-            // Функция закрытия
-            const closeModalFunc = () => {
-                modal.classList.remove('open');
-                document.body.style.overflow = '';
-                resetForm();
-            };
-
-            closeBtn.addEventListener('click', closeModalFunc);
-            overlay.addEventListener('click', closeModalFunc);
-
-            // Компоненты пошаговой формы
-            const steps = document.querySelectorAll('.booking-step');
-            const nextBtns = document.querySelectorAll('.btn-next');
-            const prevBtns = document.querySelectorAll('.btn-prev');
-            const form = document.getElementById('bookingForm');
-            let currentStep = 1;
-
-            // Логика выбора гостей (Lucky Group Style)
-            const guestOptions = document.querySelectorAll('.guest-option');
-            const guestsInput = document.getElementById('guestsCount');
-
-            guestOptions.forEach(opt => {
-                opt.addEventListener('click', () => {
-                    guestOptions.forEach(b => b.classList.remove('selected'));
-                    opt.classList.add('selected');
-                    guestsInput.value = opt.getAttribute('data-value');
-                });
-            });
-
-            // Переключение на следующий шаг
-            function goToNextStep() {
-                if (currentStep < steps.length) {
-                    steps[currentStep - 1].classList.remove('active');
-                    currentStep++;
-                    steps[currentStep - 1].classList.add('active');
-                }
-            }
-
-            // Кнопка "Далее" на первом шаге
-            nextBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const currentInputs = steps[currentStep - 1].querySelectorAll('input[required]');
-                    let valid = true;
-                    currentInputs.forEach(input => { if(!input.value) valid = false; });
-
-                    if (valid) {
-                        goToNextStep();
-                    } else {
-                        alert('Пожалуйста, выберите дату визита.');
+            if (openBtn && modal && closeBtn) {
+                openBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                    
+                    const today = new Date().toISOString().split('T')[0];
+                    const dateInput = document.getElementById('bookingDate');
+                    if (dateInput) {
+                        dateInput.min = today;
+                        if (!dateInput.value) dateInput.value = today;
                     }
                 });
-            });
 
-            // Бесшовный автопереход при клике на тайм-слот (как на maya.lucky-group.rest)
-            const timeSlots = document.querySelectorAll('.time-slot input[type="radio"]');
-            timeSlots.forEach(slot => {
-                slot.addEventListener('change', () => {
-                    if(slot.checked) {
-                        // Небольшая задержка для визуального отклика на клик
-                        setTimeout(() => {
-                            goToNextStep();
-                        }, 200);
-                    }
-                });
-            });
-
-            // Кнопка "Назад"
-            prevBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (currentStep > 1) {
-                        steps[currentStep - 1].classList.remove('active');
-                        currentStep--;
-                        steps[currentStep - 1].classList.add('active');
-                    }
-                });
-            });
-
-            // Сброс состояния формы
-            function resetForm() {
-                setTimeout(() => {
-                    steps.forEach(step => step.classList.remove('active'));
-                    steps[0].classList.add('active');
-                    currentStep = 1;
-                    form.reset();
-                    // Сбрасываем кнопки гостей
-                    guestOptions.forEach(b => b.classList.remove('selected'));
-                    guestOptions[0].classList.add('selected');
-                    guestsInput.value = "1";
-                }, 400);
-            }
-
-            // Финал — отправка формы
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const data = {
-                    guests: guestsInput.value,
-                    date: document.getElementById('bookingDate').value,
-                    time: form.querySelector('input[name="bookingTime"]:checked')?.value,
-                    name: document.getElementById('guestName').value,
-                    phone: document.getElementById('guestPhone').value,
-                    comment: document.getElementById('guestComment').value
+                const closeModalFunc = () => {
+                    modal.classList.remove('open');
+                    document.body.style.overflow = '';
+                    resetForm();
                 };
 
-                // Здесь данные готовы для передачи на бэкенд Node.js
-                alert(`Отличный выбор! Стол на ${data.guests} перс. (${data.date} в ${data.time}) забронирован на имя ${data.name}. Ждем вас в MARS!`);
-                closeModalFunc();
-            });
-        
-        // ==========================================
-        // 2. ЛОГИКА ДЛЯ ОКНА СО СКИДКОЙ (С защитой от повторного показа)
-        // ==========================================
-        const discountModal = document.getElementById('discountModal');
-        const discountClose = document.querySelector('.discount-close');
+                closeBtn.addEventListener('click', closeModalFunc);
+                overlay.addEventListener('click', closeModalFunc);
 
-        // Проверяем, закрывал ли пользователь окно ранее
-        const isClosedBefore = localStorage.getItem('discountClosed');
+                // Пошаговая логика
+                const steps = document.querySelectorAll('.booking-step');
+                const nextBtns = document.querySelectorAll('.btn-next');
+                const prevBtns = document.querySelectorAll('.btn-prev');
+                const form = document.getElementById('bookingForm');
+                let currentStep = 1;
 
-        // Показываем окно через 2 секунды, ТОЛЬКО если метки о закрытии НЕТ
-        if (!isClosedBefore) {
-            setTimeout(() => {
-                if (discountModal) {
-                    discountModal.classList.add('show');
+                const guestOptions = document.querySelectorAll('.guest-option');
+                const guestsInput = document.getElementById('guestsCount');
+
+                guestOptions.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        guestOptions.forEach(b => b.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        guestsInput.value = opt.getAttribute('data-value');
+                    });
+                });
+
+                function goToNextStep() {
+                    if (currentStep < steps.length) {
+                        steps[currentStep - 1].classList.remove('active');
+                        currentStep++;
+                        steps[currentStep - 1].classList.add('active');
+                    }
                 }
-            }, 2000);
-        }
 
-        // Функция для закрытия окна и сохранения метки
-        const handleCloseDiscount = () => {
-            if (discountModal) {
-                discountModal.classList.remove('show');
+                nextBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const currentInputs = steps[currentStep - 1].querySelectorAll('input[required]');
+                        let valid = true;
+                        currentInputs.forEach(input => { if(!input.value) valid = false; });
+                        if (valid) goToNextStep();
+                        else alert('Пожалуйста, выберите дату визита.');
+                    });
+                });
+
+                const timeSlots = document.querySelectorAll('.time-slot input[type="radio"]');
+                timeSlots.forEach(slot => {
+                    slot.addEventListener('change', () => {
+                        if(slot.checked) {
+                            setTimeout(() => { goToNextStep(); }, 200);
+                        }
+                    });
+                });
+
+                prevBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (currentStep > 1) {
+                            steps[currentStep - 1].classList.remove('active');
+                            currentStep--;
+                            steps[currentStep - 1].classList.add('active');
+                        }
+                    });
+                });
+
+                function resetForm() {
+                    setTimeout(() => {
+                        steps.forEach(step => step.classList.remove('active'));
+                        steps[0].classList.add('active');
+                        currentStep = 1;
+                        form.reset();
+                        guestOptions.forEach(b => b.classList.remove('selected'));
+                        guestOptions[0].classList.add('selected');
+                        guestsInput.value = "1";
+                    }, 400);
+                }
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Стол успешно забронирован! До встречи в MARS!');
+                    closeModalFunc();
+                });
             }
-            // Записываем в память браузера, что окно было закрыто
-            localStorage.setItem('discountClosed', 'true');
-        };
 
-        // Закрытие при клике на крестик
-        if (discountClose) {
-            discountClose.addEventListener('click', handleCloseDiscount);
-        }
+            // === ПОДДЕРЖКА СВАЙПОВ ДЛЯ КАРУСЕЛЕЙ ===
+            const allCarousels = document.querySelectorAll('.carousel-container');
+            allCarousels.forEach((container) => {
+                let touchStartX = 0;
+                let touchEndX = 0;
 
-        // Закрытие при клике на темную область вокруг картинки
-        window.addEventListener('click', (e) => {
-            if (e.target === discountModal) {
-                handleCloseDiscount();
-            }
+                container.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeThreshold = 50;
+                    
+                    if (touchStartX - touchEndX > swipeThreshold) {
+                        const nextBtn = container.querySelector('.carousel-btn.next');
+                        if (nextBtn) nextBtn.click();
+                    }
+                    if (touchEndX - touchStartX > swipeThreshold) {
+                        const prevBtn = container.querySelector('.carousel-btn.prev');
+                        if (prevBtn) prevBtn.click();
+                    }
+                }, { passive: true });
+            });
         });
-
-});
     </script>
-
-    <div id="discountModal" class="discount-modal">
-    <div class="discount-modal-content">
-        <span class="discount-close">&times;</span>
-        <a href="https://venerakazan.ru/restoran-mars" target="_blank">
-            <img src="XXXL_17.webp" alt="Скидка в Café MARS" class="discount-img">
-        </a>
-    </div>
-</div>
 </body>
 </html>
