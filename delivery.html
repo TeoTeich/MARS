@@ -234,7 +234,6 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 40px 60px 120px;
-            display: block; /* Замена флексу для Weasyprint-совместимости/стандартов */
         }
 
         /* Фильтры категорий */
@@ -266,7 +265,7 @@
             background: rgba(204, 107, 58, 0.05);
         }
 
-        /* Двухколоночный макет через таблицу (для железной стабильности) */
+        /* Двухколоночный макет */
         .delivery-layout-table {
             width: 100%;
             border-collapse: collapse;
@@ -388,13 +387,13 @@
 
         .cart-item-name {
             color: rgba(247, 243, 232, 0.8);
-            max-width: 60%;
+            max-width: 55%;
         }
 
         .cart-item-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .cart-qty-btn {
@@ -510,8 +509,8 @@
             padding-top: 30px;
         }
 
-        /* --- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ --- */
-        .booking-modal {
+        /* --- ОБЩИЙ СТИЛЬ ДЛЯ МОДАЛЬНЫХ ОКОН --- */
+        .custom-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -526,12 +525,12 @@
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
 
-        .booking-modal.open {
+        .custom-modal.open {
             opacity: 1;
             visibility: visible;
         }
 
-        .booking-overlay {
+        .modal-overlay {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -539,7 +538,7 @@
             backdrop-filter: blur(8px); 
         }
 
-        .booking-content {
+        .modal-content {
             position: relative;
             background-color: var(--space-dark);
             border: 1px solid rgba(204, 107, 58, 0.2); 
@@ -552,7 +551,7 @@
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .booking-modal.open .booking-content {
+        .custom-modal.open .modal-content {
             transform: translateY(0);
         }
 
@@ -568,31 +567,42 @@
         }
         .close-modal:hover { color: var(--mars-orange); }
 
-        .booking-header {
+        .modal-header {
             text-align: center;
             margin-bottom: 35px;
         }
-        .booking-header h3 {
+        .modal-header h3 {
             font-size: 20px;
             text-transform: uppercase;
             letter-spacing: 4px;
             color: var(--wood-beige);
             margin-bottom: 8px;
         }
-        .booking-header p {
+        .modal-header p {
             font-size: 11px;
             color: rgba(247, 243, 232, 0.5);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .booking-step { display: none; }
-        .booking-step.active { display: block; animation: fadeInStep 0.4s ease forwards; }
-
+        /* Формы и поля */
         .form-group { margin-bottom: 25px; }
         .form-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--mars-orange); margin-bottom: 10px; }
-        .form-group input { width: 100%; background: rgba(15, 81, 73, 0.1); border: 1px solid rgba(247, 243, 232, 0.15); padding: 14px 18px; color: var(--text-light); outline: none; }
-        .form-group input:focus { border-color: var(--mars-orange); }
+        
+        .form-group input, .form-group textarea { 
+            width: 100%; 
+            background: rgba(15, 81, 73, 0.1); 
+            border: 1px solid rgba(247, 243, 232, 0.15); 
+            padding: 14px 18px; 
+            color: var(--text-light); 
+            outline: none; 
+            font-family: var(--font-main);
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--mars-orange); }
+
+        .booking-step { display: none; }
+        .booking-step.active { display: block; animation: fadeInStep 0.4s ease forwards; }
 
         .time-slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
         .time-slot input { display: none; }
@@ -677,14 +687,12 @@
 
         <table class="delivery-layout-table">
             <tr>
-                <!-- ЛЕВАЯ КОЛОНКА: ТОВАРЫ -->
+                <!-- ЛЕВАЯ КОЛОНКА -->
                 <td class="layout-cell-products">
-                    <div class="products-grid" id="productsContainer">
-                        <!-- Сюда JS сгенерирует карточки на основе предоставленного docx -->
-                    </div>
+                    <div class="products-grid" id="productsContainer"></div>
                 </td>
                 
-                <!-- ПРАВАЯ КОЛОНКА: КОРЗИНА -->
+                <!-- ПРАВАЯ КОЛОНКА (КОРЗИНА) -->
                 <td class="layout-cell-cart">
                     <div class="cart-widget">
                         <h3>Ваш заказ</h3>
@@ -710,7 +718,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 
     <footer>
@@ -735,16 +742,43 @@
         </div>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ -->
-    <div class="booking-modal" id="bookingModal">
-        <div class="booking-overlay"></div>
-        <div class="booking-content">
-            <button class="close-modal" id="closeModal">&times;</button>
-            <div class="booking-header">
+    <!-- МОДАЛЬНОЕ ОКНО ОФОРМЛЕНИЯ ДОСТАВКИ (Новое!) -->
+    <div class="custom-modal" id="deliveryModal">
+        <div class="modal-overlay" id="deliveryOverlay"></div>
+        <div class="modal-content">
+            <button class="close-modal" id="closeDeliveryModal">&times;</button>
+            <div class="modal-header">
+                <h3>Данные для доставки</h3>
+                <p>Пожалуйста, заполните карточку заказа</p>
+            </div>
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" id="deliveryName" placeholder="Константин" required>
+                </div>
+                <div class="form-group">
+                    <label>Номер телефона</label>
+                    <input type="tel" id="deliveryPhone" placeholder="+7 (999) 000-00-00" required>
+                </div>
+                <div class="form-group">
+                    <label>Адрес доставки</label>
+                    <textarea id="deliveryAddress" rows="3" placeholder="г. Казань, ул. Профсоюзная, д. 10, кв. 42" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Подтвердить и отправить заказ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ СТОЛОВ -->
+    <div class="custom-modal" id="bookingModal">
+        <div class="modal-overlay" id="bookingOverlay"></div>
+        <div class="modal-content">
+            <button class="close-modal" id="closeBookingModal">&times;</button>
+            <div class="modal-header">
                 <h3>Бронирование стола</h3>
                 <p>Café MARS | г. Казань, ул. Московская, 35</p>
             </div>
-            <form id="bookingForm" class="booking-steps">
+            <form id="bookingForm">
                 <div class="booking-step active" data-step="1">
                     <div class="form-group">
                         <label>Количество гостей</label>
@@ -757,7 +791,7 @@
                     <button type="button" class="btn-next">Далее</button>
                 </div>
                 <div class="booking-step" data-step="2">
-                    <label class="group-label">Доступное время</label>
+                    <label style="display:block; font-size:10px; text-transform:uppercase; color:var(--mars-orange); margin-bottom:10px;">Доступное время</label>
                     <div class="time-slots-grid">
                         <label class="time-slot"><input type="radio" name="bookingTime" value="18:00"><span>18:00</span></label>
                         <label class="time-slot"><input type="radio" name="bookingTime" value="19:30"><span>19:30</span></label>
@@ -787,33 +821,25 @@
         </div>
     </div>
 
-    <!-- СЦЕНАРИИ КОРЗИНЫ И ИНТЕРАКТИВА -->
+    <!-- ИНТЕРАКТИВНЫЕ СКРИПТЫ -->
     <script>
-        // База данных блюд, импортированная из файла "меню марс.docx"
         const menuProducts = [
-            // Салаты
             { id: 1, category: 'salads', name: 'Салат с креветками, авокадо и баклажанами', desc: 'Salad with shrimp, avocado and eggplant', price: 690 },
             { id: 2, category: 'salads', name: 'Салат из свежих овощей с копчёной курицей', desc: 'Fresh vegetable salad with smoked chicken', price: 570 },
             { id: 3, category: 'salads', name: 'Салат с языком, грибами и овощами', desc: 'Salad with tongue, mushrooms and vegetables', price: 680 },
             { id: 4, category: 'salads', name: 'Греческий в айсберге', desc: 'Greek in an iceberg', price: 520 },
             { id: 5, category: 'salads', name: 'Цезарь с курицей', desc: 'Caesar with chicken', price: 680 },
             { id: 6, category: 'salads', name: 'Цезарь с креветками', desc: 'Caesar salad with shrimps', price: 620 },
-            
-            // Супы
             { id: 7, category: 'soups', name: 'Уха из красной и белой рыбы', desc: 'Red and white fish soup', price: 530 },
             { id: 8, category: 'soups', name: 'Солянка сборная на копчёных рёбрышках', desc: 'Solyanka assorted on smoked ribs cooked', price: 520 },
             { id: 9, category: 'soups', name: 'Суп лапша с курицей', desc: 'Chicken noodle soup', price: 420 },
             { id: 10, category: 'soups', name: 'Кукурузно-тыквенный суп с копчёной курицей', desc: 'Corn and pumpkin soup with smoked chicken', price: 450 },
-            
-            // Горячее
             { id: 11, category: 'main', name: 'Жаркое Азу по-татарски', desc: 'Roast Azu in Tatar style — традиционное сытное исполнение', price: 620 },
             { id: 12, category: 'main', name: 'Рваная говядина с бэби картофелем и шиитаки', desc: 'Pulled Beef with Baby Potatoes and Shittake', price: 700 },
             { id: 13, category: 'main', name: 'Жаркое из кролика с грибами в сметанном соусе', desc: 'Roast rabbit with mushrooms in sour cream sauce', price: 700 },
             { id: 14, category: 'main', name: 'Свиные рёбрышки под соусом Барбекю', desc: 'Pork ribs under Barbecue sauce', price: 800 },
             { id: 15, category: 'main', name: 'Филе лосося со спаржей и соусом лемонграсс', desc: 'Sea fish fillet with asparagus and lemongrass sauce', price: 1200 },
             { id: 16, category: 'main', name: 'Стейк Рибай', desc: 'Ribeye Steak — премиальный отруб идеального прожара', price: 2594 },
-            
-            // Десерты
             { id: 17, category: 'desserts', name: 'Штрудель с 4 начинками', desc: 'Strudel with 4 fillings', price: 420 },
             { id: 18, category: 'desserts', name: 'Жареное мороженое с ягодами и сливками', desc: 'Fried Ice Cream with Berries and cream', price: 400 },
             { id: 19, category: 'desserts', name: 'Чизкейк карамельный', desc: 'Premium caramel cheesecake', price: 400 }
@@ -828,7 +854,7 @@
             const totalEl = document.getElementById('summaryTotal');
             const checkoutBtn = document.getElementById('btnCheckout');
 
-            // Рендер товаров
+            // Рендер каталога блюд
             function renderProducts(filter = 'all') {
                 container.innerHTML = '';
                 const filtered = filter === 'all' ? menuProducts : menuProducts.filter(p => p.category === filter);
@@ -850,7 +876,7 @@
                 });
             }
 
-            // Логика фильтрации категорий
+            // Фильтрация
             const catBtns = document.querySelectorAll('.category-btn');
             catBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -860,7 +886,7 @@
                 });
             });
 
-            // Управление корзиной
+            // Корзина
             window.addToCart = (id) => {
                 if (cart[id]) cart[id].qty++;
                 else {
@@ -903,41 +929,54 @@
                         cartList.appendChild(row);
                     });
                 }
-
                 subtotalEl.innerText = `${subtotal} р.`;
                 totalEl.innerText = `${subtotal} р.`;
             }
 
-            // Оформление заказа
+            // --- ЛОГИКА МОДАЛЬНЫХ ОКОН ---
+            const deliveryModal = document.getElementById('deliveryModal');
+            const bookingModal = document.getElementById('bookingModal');
+
+            // Открытие окна доставки по клику на "Оформить заказ"
             checkoutBtn.addEventListener('click', () => {
-                alert('Заказ успешно принят курьерской службой MARS! Мы свяжемся с вами в течение 5 минут для подтверждения адреса доставки.');
-                cart = {};
-                updateCartUI();
-            });
-
-            // Инициализация первой загрузки
-            renderProducts();
-
-            // === МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ ===
-            const modal = document.getElementById('bookingModal');
-            const openModalBtn = document.querySelector('.header-cta');
-            const closeModalBtn = document.getElementById('closeModal');
-            const overlay = document.querySelector('.booking-overlay');
-
-            openModalBtn.addEventListener('click', () => {
-                modal.classList.add('open');
+                deliveryModal.classList.add('open');
                 document.body.style.overflow = 'hidden';
             });
 
-            const closeAll = () => {
-                modal.classList.remove('open');
+            // Открытие окна бронирования стола
+            document.querySelector('.header-cta').addEventListener('click', () => {
+                bookingModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Функция закрытия окон
+            window.closeModal = (id) => {
+                document.getElementById(id).classList.remove('open');
                 document.body.style.overflow = '';
             };
 
-            closeModalBtn.addEventListener('click', closeAll);
-            overlay.addEventListener('click', closeAll);
+            document.getElementById('closeDeliveryModal').addEventListener('click', () => closeModal('deliveryModal'));
+            document.getElementById('deliveryOverlay').addEventListener('click', () => closeModal('deliveryModal'));
+            
+            document.getElementById('closeBookingModal').addEventListener('click', () => closeModal('bookingModal'));
+            document.getElementById('bookingOverlay').addEventListener('click', () => closeModal('bookingModal'));
 
-            // Пошаговое переключение внутри модалки
+            // Отправка формы доставки
+            document.getElementById('deliveryForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('deliveryName').value;
+                const phone = document.getElementById('deliveryPhone').value;
+                const address = document.getElementById('deliveryAddress').value;
+
+                alert(`Уважаемый(ая) ${name}, ваш заказ успешно принят!\n\nСлужба доставки MARS уже начала сборку блюд.\nКурьер свяжется с вами по номеру ${phone} прибытии по адресу: ${address}.`);
+                
+                cart = {};
+                updateCartUI();
+                document.getElementById('deliveryForm').reset();
+                closeModal('deliveryModal');
+            });
+
+            // Бронирование столов по шагам
             const steps = document.querySelectorAll('.booking-step');
             const nextBtns = document.querySelectorAll('.btn-next');
             const prevBtns = document.querySelectorAll('.btn-prev');
@@ -957,9 +996,11 @@
 
             document.getElementById('bookingForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                alert('Стол забронирован!');
-                closeAll();
+                alert('Стол успешно забронирован!');
+                closeModal('bookingModal');
             });
+
+            renderProducts();
         });
     </script>
 </body>
