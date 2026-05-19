@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café MARS | Доставка — Космическая Одиссея Вкуса</title>
+    <style>
+        /* --- ЦВЕТОВАЯ ГАММА (Космический Марс + Интерьер) --- */
+        :root {
+            --space-dark: #0b0f10;       /* Глубокий космос */
+            --mars-orange: #cc6b3a;      /* Марсианский оранжевый */
+            --nebula-emerald: #0f5149;   /* Изумрудная туманность */
+            --wood-beige: #e1d3b7;       /* Светлый бежевый */
+            --text-light: #f7f3e8;
+            --font-main: 'Geometria', 'Helvetica Neue', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--space-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* --- ШАПКА --- */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+        .logo span {
+            color: var(--mars-orange);
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 400;
+            color: rgba(247, 243, 232, 0.7);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-light);
+            letter-spacing: 4px;
+        }
+
+        .header-cta {
+            border: 1px solid var(--mars-orange);
+            padding: 12px 30px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--mars-orange);
+            cursor: pointer;
+            background: transparent;
+            font-family: var(--font-main);
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            background-color: var(--mars-orange);
+            color: var(--space-dark);
+            box-shadow: 0 0 15px rgba(204, 107, 58, 0.4);
+        }
+
+        /* --- ВЫПАДАЮЩЕЕ МЕНЮ --- */
+        nav ul li.dropdown {
+            position: relative;
+            padding-bottom: 15px; 
+            margin-bottom: -15px; 
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%; 
+            left: 50%;
+            transform: translateX(-50%); 
+            background-color: rgba(11, 15, 16, 0.98); 
+            border: 1px solid rgba(204, 107, 58, 0.4);
+            min-width: 250px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0 !important;
+            padding: 8px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            z-index: 100; 
+        }
+
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 9px;
+            vertical-align: middle;
+            display: inline-block;
+            transition: transform 0.2s ease;
+            color: rgba(247, 243, 232, 0.5);
+            margin-left: 4px;
+        }
+
+        nav ul li.dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        nav ul li.dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+            color: var(--mars-orange);
+        }
+
+        .dropdown-content li a {
+            display: block;
+            padding: 12px 24px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(247, 243, 232, 0.85) !important;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: rgba(204, 107, 58, 0.15);
+            color: var(--text-light) !important;
+            letter-spacing: 2.5px;
+            padding-left: 28px;
+        }
+
+        .dropdown-content.contacts-dropdown {
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px !important; 
+            cursor: default; 
+        }
+
+        .contacts-dropdown .contact-section h5 {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--mars-orange);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .contacts-dropdown .contact-section p {
+            font-size: 12px;
+            line-height: 1.4;
+            color: rgba(247, 243, 232, 0.9);
+        }
+
+        .contacts-dropdown .contact-link {
+            display: block;
+            font-size: 12px;
+            color: rgba(247, 243, 232, 0.9) !important;
+            text-decoration: none;
+            transition: color 0.2s ease, padding-left 0.2s ease;
+            margin-bottom: 4px;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН ДОСТАВКИ --- */
+        .delivery-hero {
+            height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(204, 107, 58, 0.15), var(--space-dark)),
+                url('https://www.transparenttextures.com/patterns/stardust.png'), 
+                #0b0f10; 
+            padding-top: 80px;
+        }
+
+        .delivery-hero h1 {
+            font-size: 50px;
+            font-weight: 200;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .delivery-hero p {
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--mars-orange);
+        }
+
+        /* --- ИНТЕРФЕЙС ЗАКАЗА --- */
+        .delivery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px 120px;
+            display: block; /* Замена флексу для Weasyprint-совместимости/стандартов */
+        }
+
+        /* Фильтры категорий */
+        .categories-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(247, 243, 232, 0.08);
+            padding-bottom: 20px;
+        }
+
+        .category-btn {
+            background: transparent;
+            border: 1px solid rgba(247, 243, 232, 0.15);
+            padding: 12px 24px;
+            color: rgba(247, 243, 232, 0.7);
+            font-family: var(--font-main);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            border-color: var(--mars-orange);
+            color: var(--text-light);
+            background: rgba(204, 107, 58, 0.05);
+        }
+
+        /* Двухколоночный макет через таблицу (для железной стабильности) */
+        .delivery-layout-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .layout-cell-products {
+            width: 70%;
+            vertical-align: top;
+            padding-right: 40px;
+        }
+
+        .layout-cell-cart {
+            width: 30%;
+            vertical-align: top;
+        }
+
+        /* Сетка товаров */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            background: rgba(6, 8, 9, 0.4);
+            border: 1px solid rgba(225, 211, 183, 0.08);
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            border-color: rgba(204, 107, 58, 0.3);
+            background: rgba(6, 8, 9, 0.8);
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: var(--wood-beige);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: rgba(247, 243, 232, 0.5);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .btn-add-to-cart {
+            background: var(--nebula-emerald);
+            border: 1px solid rgba(204, 107, 58, 0.2);
+            color: var(--text-light);
+            padding: 10px 18px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-add-to-cart:hover {
+            background: var(--mars-orange);
+            color: var(--space-dark);
+        }
+
+        /* Виджет корзины */
+        .cart-widget {
+            background: #060809;
+            border: 1px solid rgba(204, 107, 58, 0.2);
+            padding: 30px;
+            position: sticky;
+            top: 40px;
+        }
+
+        .cart-widget h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--wood-beige);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(247, 243, 232, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .cart-items-list {
+            max-height: 240px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(247, 243, 232, 0.05);
+            font-size: 12px;
+        }
+
+        .cart-item-name {
+            color: rgba(247, 243, 232, 0.8);
+            max-width: 60%;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-qty-btn {
+            background: transparent;
+            border: 1px solid rgba(247, 243, 232, 0.2);
+            color: var(--text-light);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .cart-qty-btn:hover {
+            border-color: var(--mars-orange);
+            color: var(--mars-orange);
+        }
+
+        .cart-empty-text {
+            color: rgba(247, 243, 232, 0.3);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .cart-summary {
+            border-top: 1px solid rgba(247, 243, 232, 0.1);
+            padding-top: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .summary-total {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--mars-orange);
+            margin-top: 5px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: var(--mars-orange);
+            color: var(--space-dark);
+            border: none;
+            padding: 15px;
+            font-family: var(--font-main);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-checkout:hover {
+            background: var(--text-light);
+            box-shadow: 0 0 15px rgba(247, 243, 232, 0.2);
+        }
+
+        .btn-checkout:disabled {
+            background: rgba(247, 243, 232, 0.1);
+            color: rgba(247, 243, 232, 0.3);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* --- ФУТЕР --- */
+        footer {
+            background-color: #060809;
+            border-top: 1px solid rgba(15, 81, 73, 0.2);
+            padding: 100px 60px 40px;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .footer-block h4 {
+            color: var(--mars-orange);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .footer-block p {
+            color: rgba(247, 243, 232, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            color: #333;
+            font-size: 11px;
+            border-top: 1px solid rgba(247, 243, 232, 0.02);
+            padding-top: 30px;
+        }
+
+        /* --- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ --- */
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .booking-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 15, 16, 0.85); 
+            backdrop-filter: blur(8px); 
+        }
+
+        .booking-content {
+            position: relative;
+            background-color: var(--space-dark);
+            border: 1px solid rgba(204, 107, 58, 0.2); 
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            z-index: 2;
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .booking-modal.open .booking-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: rgba(247, 243, 232, 0.5);
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .close-modal:hover { color: var(--mars-orange); }
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .booking-header h3 {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--wood-beige);
+            margin-bottom: 8px;
+        }
+        .booking-header p {
+            font-size: 11px;
+            color: rgba(247, 243, 232, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .booking-step { display: none; }
+        .booking-step.active { display: block; animation: fadeInStep 0.4s ease forwards; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--mars-orange); margin-bottom: 10px; }
+        .form-group input { width: 100%; background: rgba(15, 81, 73, 0.1); border: 1px solid rgba(247, 243, 232, 0.15); padding: 14px 18px; color: var(--text-light); outline: none; }
+        .form-group input:focus { border-color: var(--mars-orange); }
+
+        .time-slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
+        .time-slot input { display: none; }
+        .time-slot span { display: block; text-align: center; padding: 12px 0; font-size: 12px; border: 1px solid rgba(247, 243, 232, 0.15); cursor: pointer; }
+        .time-slot input:checked + span { background-color: var(--nebula-emerald); border-color: var(--mars-orange); }
+
+        .step-buttons { display: flex; gap: 15px; }
+        .btn-next, .btn-submit, .btn-prev { width: 100%; padding: 16px; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; cursor: pointer; border: none; }
+        .btn-next, .btn-submit { background-color: var(--nebula-emerald); color: var(--text-light); }
+        .btn-next:hover, .btn-submit:hover { background-color: var(--mars-orange); color: var(--space-dark); }
+        .btn-prev { background: transparent; color: rgba(247, 243, 232, 0.6); border: 1px solid rgba(247, 243, 232, 0.15); }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 20px 30px; }
+            .delivery-container { padding: 20px; }
+            .delivery-layout-table, .delivery-layout-table tbody, .delivery-layout-table tr, .delivery-layout-table td {
+                display: block;
+                width: 100% !important;
+                padding-right: 0 !important;
+            }
+            .layout-cell-cart { margin-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MARS <span>RESTAURANT</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Меню</a>
+                    <ul class="dropdown-content">
+                        <li><a href="mars-menu.pdf" target="_blank">Основное меню Аля-карт</a></li>
+                        <li><a href="zavtraki.jpeg" target="_blank">Завтраки</a></li>
+                        <li><a href="detskoe.jpeg" target="_blank">Детское меню</a></li>
+                        <li><a href="barnaya-karta-postranichno-1.pdf" target="_blank">Барная карта</a></li>
+                        <li><a href="vinnaya-karta-postranichno-1.pdf" target="_blank">Винная карта</a></li>
+                    </ul>
+                </li>
+                <li><a href="delivery.html" class="active">Доставка</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Контакты</a>
+                    <div class="dropdown-content contacts-dropdown">
+                        <div class="contact-section">
+                            <h5>Местоположение</h5>
+                            <p>г. Казань, ул. Московская, д. 35</p>
+                            <p class="sub-text">Отель VENERA (1 этаж)</p>
+                        </div>
+                        <div class="contact-section">
+                            <h5>Контакты</h5>
+                            <a href="tel:+78432217007" class="contact-link">+7 (843) 221-70-07</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <button class="header-cta">Бронирование стола</button>
+    </header>
+
+    <section class="delivery-hero">
+        <h1>Доставка из космоса</h1>
+        <p>Премиальные блюда MARS у вас дома</p>
+    </section>
+
+    <div class="delivery-container">
+        
+        <!-- НАВИГАЦИЯ ПО КАТЕГОРИЯМ -->
+        <div class="categories-nav">
+            <button class="category-btn active" data-category="all">Все блюда</button>
+            <button class="category-btn" data-category="salads">Салаты</button>
+            <button class="category-btn" data-category="soups">Супы</button>
+            <button class="category-btn" data-category="main">Горячее</button>
+            <button class="category-btn" data-category="desserts">Десерты</button>
+        </div>
+
+        <table class="delivery-layout-table">
+            <tr>
+                <!-- ЛЕВАЯ КОЛОНКА: ТОВАРЫ -->
+                <td class="layout-cell-products">
+                    <div class="products-grid" id="productsContainer">
+                        <!-- Сюда JS сгенерирует карточки на основе предоставленного docx -->
+                    </div>
+                </td>
+                
+                <!-- ПРАВАЯ КОЛОНКА: КОРЗИНА -->
+                <td class="layout-cell-cart">
+                    <div class="cart-widget">
+                        <h3>Ваш заказ</h3>
+                        <div class="cart-items-list" id="cartItemsList">
+                            <div class="cart-empty-text">Корзина пуста. Выберите космические вкусы слева.</div>
+                        </div>
+                        <div class="cart-summary">
+                            <div class="summary-row">
+                                <span>Блюда:</span>
+                                <span id="summarySubtotal">0 р.</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Доставка:</span>
+                                <span id="summaryShipping">Бесплатно</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                                <span>Итого:</span>
+                                <span id="summaryTotal">0 р.</span>
+                            </div>
+                        </div>
+                        <button class="btn-checkout" id="btnCheckout" disabled>Оформить заказ</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-block">
+                <h4>Местоположение</h4>
+                <p>г. Казань, ул. Московская, д. 35</p>
+                <p>Отель VENERA (1 этаж)</p>
+            </div>
+            <div class="footer-block">
+                <h4>Контакты</h4>
+                <p>venerakazan@bk.ru</p>
+                <p>+7 (843) 221-70-07</p>
+            </div>
+            <div class="footer-block">
+                <h4>График работы</h4>
+                <p>ПН - ВС: 10:00 — 22:00</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Ресторан «MARS». Новая визуальная концепция.
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-overlay"></div>
+        <div class="booking-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="booking-header">
+                <h3>Бронирование стола</h3>
+                <p>Café MARS | г. Казань, ул. Московская, 35</p>
+            </div>
+            <form id="bookingForm" class="booking-steps">
+                <div class="booking-step active" data-step="1">
+                    <div class="form-group">
+                        <label>Количество гостей</label>
+                        <input type="number" id="guestsCount" min="1" max="10" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата визита</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
+                    <button type="button" class="btn-next">Далее</button>
+                </div>
+                <div class="booking-step" data-step="2">
+                    <label class="group-label">Доступное время</label>
+                    <div class="time-slots-grid">
+                        <label class="time-slot"><input type="radio" name="bookingTime" value="18:00"><span>18:00</span></label>
+                        <label class="time-slot"><input type="radio" name="bookingTime" value="19:30"><span>19:30</span></label>
+                        <label class="time-slot"><input type="radio" name="bookingTime" value="20:00"><span>20:00</span></label>
+                        <label class="time-slot"><input type="radio" name="bookingTime" value="21:00"><span>21:00</span></label>
+                    </div>
+                    <div class="step-buttons">
+                        <button type="button" class="btn-prev">Назад</button>
+                        <button type="button" class="btn-next">Далее</button>
+                    </div>
+                </div>
+                <div class="booking-step" data-step="3">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="guestName" placeholder="Александр" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" id="guestPhone" placeholder="+7..." required>
+                    </div>
+                    <div class="step-buttons">
+                        <button type="button" class="btn-prev">Назад</button>
+                        <button type="submit" class="btn-submit">Подтвердить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- СЦЕНАРИИ КОРЗИНЫ И ИНТЕРАКТИВА -->
+    <script>
+        // База данных блюд, импортированная из файла "меню марс.docx"
+        const menuProducts = [
+            // Салаты
+            { id: 1, category: 'salads', name: 'Салат с креветками, авокадо и баклажанами', desc: 'Salad with shrimp, avocado and eggplant', price: 690 },
+            { id: 2, category: 'salads', name: 'Салат из свежих овощей с копчёной курицей', desc: 'Fresh vegetable salad with smoked chicken', price: 570 },
+            { id: 3, category: 'salads', name: 'Салат с языком, грибами и овощами', desc: 'Salad with tongue, mushrooms and vegetables', price: 680 },
+            { id: 4, category: 'salads', name: 'Греческий в айсберге', desc: 'Greek in an iceberg', price: 520 },
+            { id: 5, category: 'salads', name: 'Цезарь с курицей', desc: 'Caesar with chicken', price: 680 },
+            { id: 6, category: 'salads', name: 'Цезарь с креветками', desc: 'Caesar salad with shrimps', price: 620 },
+            
+            // Супы
+            { id: 7, category: 'soups', name: 'Уха из красной и белой рыбы', desc: 'Red and white fish soup', price: 530 },
+            { id: 8, category: 'soups', name: 'Солянка сборная на копчёных рёбрышках', desc: 'Solyanka assorted on smoked ribs cooked', price: 520 },
+            { id: 9, category: 'soups', name: 'Суп лапша с курицей', desc: 'Chicken noodle soup', price: 420 },
+            { id: 10, category: 'soups', name: 'Кукурузно-тыквенный суп с копчёной курицей', desc: 'Corn and pumpkin soup with smoked chicken', price: 450 },
+            
+            // Горячее
+            { id: 11, category: 'main', name: 'Жаркое Азу по-татарски', desc: 'Roast Azu in Tatar style — традиционное сытное исполнение', price: 620 },
+            { id: 12, category: 'main', name: 'Рваная говядина с бэби картофелем и шиитаки', desc: 'Pulled Beef with Baby Potatoes and Shittake', price: 700 },
+            { id: 13, category: 'main', name: 'Жаркое из кролика с грибами в сметанном соусе', desc: 'Roast rabbit with mushrooms in sour cream sauce', price: 700 },
+            { id: 14, category: 'main', name: 'Свиные рёбрышки под соусом Барбекю', desc: 'Pork ribs under Barbecue sauce', price: 800 },
+            { id: 15, category: 'main', name: 'Филе лосося со спаржей и соусом лемонграсс', desc: 'Sea fish fillet with asparagus and lemongrass sauce', price: 1200 },
+            { id: 16, category: 'main', name: 'Стейк Рибай', desc: 'Ribeye Steak — премиальный отруб идеального прожара', price: 2594 },
+            
+            // Десерты
+            { id: 17, category: 'desserts', name: 'Штрудель с 4 начинками', desc: 'Strudel with 4 fillings', price: 420 },
+            { id: 18, category: 'desserts', name: 'Жареное мороженое с ягодами и сливками', desc: 'Fried Ice Cream with Berries and cream', price: 400 },
+            { id: 19, category: 'desserts', name: 'Чизкейк карамельный', desc: 'Premium caramel cheesecake', price: 400 }
+        ];
+
+        let cart = {};
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('productsContainer');
+            const cartList = document.getElementById('cartItemsList');
+            const subtotalEl = document.getElementById('summarySubtotal');
+            const totalEl = document.getElementById('summaryTotal');
+            const checkoutBtn = document.getElementById('btnCheckout');
+
+            // Рендер товаров
+            function renderProducts(filter = 'all') {
+                container.innerHTML = '';
+                const filtered = filter === 'all' ? menuProducts : menuProducts.filter(p => p.category === filter);
+                
+                filtered.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div>
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-desc">${p.desc}</div>
+                        </div>
+                        <div class="product-meta">
+                            <div class="product-price">${p.price} р.</div>
+                            <button class="btn-add-to-cart" onclick="addToCart(${p.id})">В корзину</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            // Логика фильтрации категорий
+            const catBtns = document.querySelectorAll('.category-btn');
+            catBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    catBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderProducts(btn.getAttribute('data-category'));
+                });
+            });
+
+            // Управление корзиной
+            window.addToCart = (id) => {
+                if (cart[id]) cart[id].qty++;
+                else {
+                    const product = menuProducts.find(p => p.id === id);
+                    cart[id] = { ...product, qty: 1 };
+                }
+                updateCartUI();
+            };
+
+            window.changeQty = (id, delta) => {
+                if (!cart[id]) return;
+                cart[id].qty += delta;
+                if (cart[id].qty <= 0) delete cart[id];
+                updateCartUI();
+            };
+
+            function updateCartUI() {
+                cartList.innerHTML = '';
+                let subtotal = 0;
+                const items = Object.values(cart);
+
+                if (items.length === 0) {
+                    cartList.innerHTML = '<div class="cart-empty-text">Корзина пуста. Выберите космические вкусы слева.</div>';
+                    checkoutBtn.disabled = true;
+                } else {
+                    checkoutBtn.disabled = false;
+                    items.forEach(item => {
+                        subtotal += item.price * item.qty;
+                        const row = document.createElement('div');
+                        row.className = 'cart-item';
+                        row.innerHTML = `
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-controls">
+                                <button class="cart-qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button class="cart-qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                                <span style="margin-left:5px; font-weight:600;">${item.price * item.qty} р.</span>
+                            </div>
+                        `;
+                        cartList.appendChild(row);
+                    });
+                }
+
+                subtotalEl.innerText = `${subtotal} р.`;
+                totalEl.innerText = `${subtotal} р.`;
+            }
+
+            // Оформление заказа
+            checkoutBtn.addEventListener('click', () => {
+                alert('Заказ успешно принят курьерской службой MARS! Мы свяжемся с вами в течение 5 минут для подтверждения адреса доставки.');
+                cart = {};
+                updateCartUI();
+            });
+
+            // Инициализация первой загрузки
+            renderProducts();
+
+            // === МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ ===
+            const modal = document.getElementById('bookingModal');
+            const openModalBtn = document.querySelector('.header-cta');
+            const closeModalBtn = document.getElementById('closeModal');
+            const overlay = document.querySelector('.booking-overlay');
+
+            openModalBtn.addEventListener('click', () => {
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeAll = () => {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            };
+
+            closeModalBtn.addEventListener('click', closeAll);
+            overlay.addEventListener('click', closeAll);
+
+            // Пошаговое переключение внутри модалки
+            const steps = document.querySelectorAll('.booking-step');
+            const nextBtns = document.querySelectorAll('.btn-next');
+            const prevBtns = document.querySelectorAll('.btn-prev');
+            let currentStep = 1;
+
+            nextBtns.forEach(b => b.addEventListener('click', () => {
+                steps[currentStep-1].classList.remove('active');
+                currentStep++;
+                steps[currentStep-1].classList.add('active');
+            }));
+
+            prevBtns.forEach(b => b.addEventListener('click', () => {
+                steps[currentStep-1].classList.remove('active');
+                currentStep--;
+                steps[currentStep-1].classList.add('active');
+            }));
+
+            document.getElementById('bookingForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Стол забронирован!');
+                closeAll();
+            });
+        });
+    </script>
+</body>
+</html>
