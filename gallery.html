@@ -1104,36 +1104,35 @@
             });
         });
 
-        // --- ПОДДЕРЖКА СВАЙПОВ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ---
-let touchStartX = 0;
-let touchEndX = 0;
+        // --- ПОДДЕРЖКА СВАЙПОВ ДЛЯ ВСЕХ КАРУСЕЛЕЙ (ИНТЕРЬЕР И КУХНЯ) ---
+const allCarousels = document.querySelectorAll('.carousel-container');
 
-const carouselContainer = document.querySelector('.carousel-container');
+allCarousels.forEach((container) => {
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-carouselContainer.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-}, { passive: true });
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
-carouselContainer.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-}, { passive: true });
-
-function handleSwipe() {
-    const swipeThreshold = 50; // Минимальная дистанция в пикселях для фиксации свайпа
-    
-    // Свайп влево — листаем вперед
-    if (touchStartX - touchEndX > swipeThreshold) {
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        if (nextBtn) nextBtn.click();
-    }
-    
-    // Свайп вправо — листаем назад
-    if (touchEndX - touchStartX > swipeThreshold) {
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        if (prevBtn) prevBtn.click();
-    }
-}
+    container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        
+        const swipeThreshold = 50; // чувствительность свайпа
+        
+        // Свайп влево — ищем кнопку "вперед" именно ВНУТРИ этой карусели
+        if (touchStartX - touchEndX > swipeThreshold) {
+            const nextBtn = container.querySelector('.carousel-btn.next');
+            if (nextBtn) nextBtn.click();
+        }
+        
+        // Свайп вправо — ищем кнопку "назад" именно ВНУТРИ этой карусели
+        if (touchEndX - touchStartX > swipeThreshold) {
+            const prevBtn = container.querySelector('.carousel-btn.prev');
+            if (prevBtn) prevBtn.click();
+        }
+    }, { passive: true });
+});
     </script>
 </body>
 </html>
