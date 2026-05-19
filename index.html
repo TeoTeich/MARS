@@ -596,6 +596,73 @@
             color: var(--text-light);
             border-color: rgba(247, 243, 232, 0.4);
         }
+        /* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 20px 30px;
+    }
+    nav ul {
+        gap: 20px;
+    }
+    .hero h1 {
+        font-size: 50px;
+        letter-spacing: 10px;
+    }
+    .concept {
+        padding: 80px 30px;
+        flex-direction: column;
+        gap: 50px;
+    }
+    .concept-text h2 {
+        font-size: 32px;
+    }
+    footer {
+        padding: 60px 30px 30px;
+    }
+    .footer-content {
+        flex-direction: column;
+        gap: 35px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        position: relative;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        background: rgba(11, 15, 16, 0.95);
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .header-cta {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    .hero {
+        height: auto;
+        padding: 120px 20px 80px;
+    }
+    .hero h1 {
+        font-size: 36px;
+        letter-spacing: 6px;
+    }
+    .hero p {
+        font-size: 13px;
+        letter-spacing: 4px;
+    }
+    .concept-visual::after {
+        top: 15px;
+        left: -15px;
+    }
+    .concept-image {
+        height: 350px;
+    }
+}
     </style>
 </head>
 <body>

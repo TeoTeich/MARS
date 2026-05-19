@@ -628,6 +628,73 @@
             .carousel-btn { display: none; } /* Свайпы/скролл на моб */
             .gallery-section { padding: 40px 20px; }
         }
+        /* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 20px 30px;
+    }
+    nav ul {
+        gap: 20px;
+    }
+    .gallery-hero h1 {
+        font-size: 42px;
+        letter-spacing: 8px;
+    }
+    .gallery-section {
+        padding: 60px 30px;
+    }
+    .carousel-slide {
+        min-width: calc(100% / 2); /* Показываем по 2 слайда на планшетах */
+    }
+    footer {
+        padding: 60px 30px 30px;
+    }
+    .footer-content {
+        flex-direction: column;
+        gap: 35px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        position: relative;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        background: rgba(11, 15, 16, 0.95);
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .header-cta {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    .gallery-hero {
+        height: auto;
+        padding: 80px 20px 40px;
+    }
+    .gallery-hero h1 {
+        font-size: 32px;
+        letter-spacing: 4px;
+    }
+    .carousel-slide {
+        min-width: 100%; /* Показываем по 1 слайду на телефонах */
+    }
+    .carousel-image-wrapper {
+        height: 280px;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    .carousel-btn.prev { left: -10px; }
+    .carousel-btn.next { right: -10px; }
+}
     </style>
 </head>
 <body>
